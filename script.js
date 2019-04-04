@@ -99,7 +99,7 @@ function createCharts(sellersPercent){
           labels: ['Marco', 'Giuseppe', 'Riccardo', 'Roberto'],
           datasets: [{
               label: 'Sellers',
-              backgroundColor: 'rgba(50, 200, 255,0.5)',
+              backgroundColor: ["red","blue","yellow","grey"],
               borderColor: 'rgb(255, 255, 255)',
               data: sellersPercent
           }]
