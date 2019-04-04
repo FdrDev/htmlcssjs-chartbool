@@ -67,7 +67,7 @@ function printLineSellerChart(inData){
     var d = inData[i];
     var sellerName = d.salesman;
     var sellerAmount = d.amount;
-    totSeller[sellerName] += sellerAmount;
+    totSeller[sellerName] += Number(sellerAmount);
   }
   console.log("Guadagno venditori",totSeller);
 
@@ -83,7 +83,7 @@ function createCharts(sellerNameList,sellerAmountList){
   var ctx = document.getElementById('myChart').getContext('2d');
   var chart = new Chart(ctx, {
       // The type of chart we want to create
-      type: 'doughnut',
+      type: 'pie',
 
       // The data for our dataset
       data: {
@@ -143,9 +143,35 @@ function createCharts2(monthList,amountList){
 
 }
 
+function updateSellersAmount(){
+  var idSeller = $("#selectSeller").val();
+  var month = $("#selectMonth").val();
+  var money = $("#money");
+  var moneyVal = Number($("#money").val());
+
+  console.log("idSeller", idSeller);
+  console.log("07/"+month+"/2017");
+  console.log("Soldi",moneyVal);
+
+  money.val("");
+  $.ajax({
+    url:"http://157.230.17.132:4008/sales",
+    method:"POST",
+    data:{
+      "salesman": idSeller,
+      "amount": Number(moneyVal),
+      "date": "01/"+month+"/2017"
+    },
+    success:function (inData) {
+      loadData();
+    },
+    error:function(){}
+  });
+}
+
 function init() {
 loadData();
-
+$("#btn").on("click",updateSellersAmount)
 /*
 var montName= getMonthNameFromDate("12/07/17");
 
